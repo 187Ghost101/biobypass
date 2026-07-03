@@ -1,0 +1,19 @@
+# Build artifacts
+*.pyc
+__pycache__/
+.DS_Store
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+
+# Test outputs
+test_install/
+*_test/

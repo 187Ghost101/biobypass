@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>BioBypass Pro v11.0 — Nocturne Cipher | ghost1o1</title>
+<meta name="description" content='BioBypass Pro v11.0 Nocturne Cipher — The avant-garde biometric/IoT pentesting reference by ghost1o1.'>
+<meta name="theme-color" content="#05050d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23e3063e'/><stop offset='100%25' stop-color='%2300f3ff'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><text x='50' y='62' font-size='40' text-anchor='middle' fill='white' font-family='monospace' font-weight='bold'>G1</text></svg>">
+
+<style>
+:root{--void:#05050d;--void-2:#0a0a18;--void-3:#11112a;--glass:rgba(12,12,28,.62);--glass-strong:rgba(18,18,40,.88);--border:rgba(140,140,220,.14);--border-strong:rgba(190,150,255,.42);--text:#e8e8f0;--text-2:#9898b8;--text-3:#5a5a78;--blood:#e3063e;--blood-soft:rgba(227,6,62,.18);--cyan:#00f3ff;--cyan-soft:rgba(0,243,255,.14);--violet:#a855f7;--violet-soft:rgba(168,85,247,.18);--magenta:#ec4899;--neon:#00ff9d;--gold:#fbbf24;--font-display:'Orbitron','Audiowide','Inter',sans-serif;--font-ui:'Inter','SF Pro Display','Segoe UI',system-ui,sans-serif;--font-mono:'JetBrains Mono','Fira Code','Cascadia Code',monospace;--radius:18px;--radius-sm:10px;--glow-blood:0 0 28px rgba(227,6,62,.55);--glow-cyan:0 0 28px rgba(0,243,255,.55);--glow-violet:0 0 32px rgba(168,85,247,.6)}
+*{margin:0;padding:0;box-sizing:border-box}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:rgba(255,255,255,.02)}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--violet),var(--cyan));border-radius:5px;opacity:.6}
+*::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--blood),var(--magenta))}
+html,body{min-height:100vh;height:auto}
+body{font-family:var(--font-ui);background:var(--void);color:var(--text);font-size:14px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;cursor:default}
+body::before{content:'';position:fixed;inset:0;z-index:-3;pointer-events:none;background:radial-gradient(circle at 8% 12%,rgba(227,6,62,.22) 0,transparent 35%),radial-gradient(circle at 92% 8%,rgba(0,243,255,.18) 0,transparent 38%),radial-gradient(circle at 50% 95%,rgba(168,85,247,.28) 0,transparent 50%),radial-gradient(circle at 20% 80%,rgba(236,72,153,.16) 0,transparent 40%),linear-gradient(180deg,#05050d 0%,#08081a 50%,#04040c 100%);animation:aurora 22s ease-in-out infinite alternate}
+@keyframes aurora{0%{filter:hue-rotate(0deg) saturate(1)}50%{filter:hue-rotate(15deg) saturate(1.2)}100%{filter:hue-rotate(-10deg) saturate(1.1)}}
+body::after{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(168,85,247,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,.045) 1px,transparent 1px),linear-gradient(0deg,transparent 50%,rgba(0,243,255,.018) 50%);background-size:54px 54px,54px 54px,4px 4px;mask-image:radial-gradient(ellipse at center,rgba(0,0,0,.85),transparent 82%);-webkit-mask-image:radial-gradient(ellipse at center,rgba(0,0,0,.85),transparent 82%)}
+.watermark{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;font-family:var(--font-display);font-weight:900;font-size:160px;line-height:1;letter-spacing:-.04em;color:rgba(168,85,247,.025);display:flex;flex-wrap:wrap;align-content:flex-start;user-select:none}
+.watermark span{padding:0 .15em;white-space:nowrap}
+.cursor-glow{position:fixed;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.18) 0%,rgba(0,243,255,.06) 30%,transparent 60%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:opacity .3s;mix-blend-mode:screen}
+canvas#particles{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.6}
+.topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);background:linear-gradient(180deg,rgba(8,8,18,.82),rgba(8,8,18,.45));border-bottom:1px solid var(--border);padding:14px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.topbar::before{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--blood),var(--violet),var(--cyan),transparent);opacity:.7}
+.brand{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+.brand-mark{width:48px;height:48px;border-radius:13px;background:conic-gradient(from 45deg at 50% 50%,var(--blood) 0deg,var(--magenta) 90deg,var(--violet) 180deg,var(--cyan) 270deg,var(--blood) 360deg);display:grid;place-items:center;position:relative;overflow:hidden;box-shadow:0 0 32px rgba(168,85,247,.45),inset 0 1px 0 rgba(255,255,255,.18);animation:markSpin 18s linear infinite}
+@keyframes markSpin{to{filter:hue-rotate(360deg)}}
+.brand-mark::after{content:'G1';position:absolute;inset:2px;border-radius:11px;background:rgba(8,8,18,.92);display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:18px;color:#fff;letter-spacing:.04em}
+.brand-text h1{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:.05em;background:linear-gradient(90deg,#fff 0%,var(--violet) 40%,var(--cyan) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 24px rgba(168,85,247,.3)}
+.brand-text .ver{font-family:var(--font-mono);font-size:10px;color:var(--text-2);letter-spacing:.22em;margin-top:2px}
+.tagline{font-family:var(--font-mono);font-size:11px;color:var(--text-2);padding-left:18px;border-left:1px solid var(--border);margin-left:auto;letter-spacing:.05em}
+.tagline b{color:var(--blood);font-weight:600;text-shadow:0 0 12px var(--blood-soft)}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+.sound-toggle{background:var(--glass);border:1px solid var(--border);color:var(--text-2);padding:7px 12px;border-radius:8px;cursor:pointer;font-family:var(--font-mono);font-size:11px;transition:all .2s}
+.sound-toggle:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:var(--glow-cyan)}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 78px)}
+@media (max-width:980px){.shell{grid-template-columns:1fr}.sidebar{position:fixed;top:78px;left:0;right:0;height:auto;max-height:55vh;overflow-y:auto;z-index:40}}
+.sidebar{background:linear-gradient(180deg,rgba(14,14,30,.78),rgba(8,8,18,.78));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-right:1px solid var(--border);padding:18px 12px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;position:relative}
+.sidebar::after{content:'';position:absolute;top:0;bottom:0;right:0;width:1px;background:linear-gradient(180deg,transparent,var(--violet),transparent);opacity:.5}
+.nav-section{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.25em;color:var(--text-3);padding:16px 14px 6px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.nav-section::before{content:'';width:6px;height:1px;background:var(--blood)}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;cursor:pointer;font-size:13px;color:var(--text-2);border:1px solid transparent;position:relative;overflow:hidden;transition:all .25s cubic-bezier(.2,.8,.2,1)}
+.nav-item .ico{font-size:15px;width:18px;text-align:center;filter:saturate(1.2)}
+.nav-item:hover{background:var(--glass);color:var(--text);border-color:var(--border);transform:translateX(3px)}
+.nav-item.active{background:linear-gradient(90deg,var(--blood-soft),transparent);color:#fff;border-color:var(--blood);box-shadow:inset 0 0 0 1px rgba(227,6,62,.4),0 0 18px var(--blood-soft)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--blood),var(--violet));box-shadow:var(--glow-blood)}
+.nav-item .badge{margin-left:auto;background:var(--glass-strong);color:var(--cyan);font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;letter-spacing:.1em;border:1px solid var(--border)}
+.nav-item.active .badge{background:var(--blood);color:#fff;border-color:transparent}
+.sidebar-footer{margin-top:auto;padding:14px 14px 6px;font-family:var(--font-mono);font-size:9.5px;color:var(--text-3);letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.content{padding:26px;overflow-y:auto;position:relative}
+.page{display:none;animation:pageIn .45s cubic-bezier(.2,.8,.2,1)}
+.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page-head{margin-bottom:22px;position:relative}
+.page-title{font-family:var(--font-display);font-size:28px;font-weight:800;letter-spacing:.04em;background:linear-gradient(90deg,#fff,var(--violet) 60%,var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-transform:uppercase}
+.page-subtitle{font-family:var(--font-mono);font-size:11px;color:var(--text-2);letter-spacing:.18em;margin-top:4px;text-transform:uppercase}
+.page-subtitle b{color:var(--blood);font-weight:600}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:all .3s cubic-bezier(.2,.8,.2,1)}
+.card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:linear-gradient(135deg,transparent 30%,var(--violet-soft) 50%,transparent 70%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6}
+.card:hover{border-color:var(--border-strong);transform:translateY(-2px);box-shadow:0 12px 40px rgba(168,85,247,.12)}
+.card.glow-blood{box-shadow:var(--glow-blood)}
+.card.glow-cyan{box-shadow:var(--glow-cyan)}
+.card.glow-violet{box-shadow:var(--glow-violet)}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.card-h h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:8px}
+.card-h h3 .dot{width:7px;height:7px;border-radius:50%;background:var(--blood);box-shadow:0 0 10px var(--blood);animation:pulse 2s infinite}
+.card-h h3 .dot.cyan{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.card-h h3 .dot.violet{background:var(--violet);box-shadow:0 0 10px var(--violet)}
+.card-h h3 .dot.neon{background:var(--neon);box-shadow:0 0 10px var(--neon)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;padding:3px 8px;border-radius:5px;text-transform:uppercase;font-weight:600}
+.tag.blood{background:var(--blood-soft);color:var(--blood);border:1px solid var(--blood)}
+.tag.cyan{background:var(--cyan-soft);color:var(--cyan);border:1px solid var(--cyan)}
+.tag.violet{background:var(--violet-soft);color:var(--violet);border:1px solid var(--violet)}
+.tag.gold{background:rgba(251,191,36,.15);color:var(--gold);border:1px solid var(--gold)}
+.tag.neon{background:rgba(0,255,157,.12);color:var(--neon);border:1px solid var(--neon)}
+.kpi{text-align:center;padding:22px 14px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blood),var(--violet),var(--cyan),transparent)}
+.kpi .v{font-family:var(--font-display);font-size:38px;font-weight:900;background:linear-gradient(135deg,#fff,var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.kpi .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;color:var(--text-2);text-transform:uppercase;margin-top:6px}
+.grid{display:grid;gap:18px}
+.g-2{grid-template-columns:repeat(2,1fr)}
+.g-3{grid-template-columns:repeat(3,1fr)}
+.g-4{grid-template-columns:repeat(4,1fr)}
+.g-5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:1200px){.g-4,.g-5{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){.g-3,.g-4,.g-5{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.g-2,.g-3,.g-4,.g-5{grid-template-columns:1fr}}
+pre{background:rgba(0,0,0,.55);border:1px solid var(--border);border-left:3px solid var(--blood);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--cyan);overflow-x:auto;position:relative}
+pre .c{color:var(--text-3);font-style:italic}
+pre .k{color:var(--blood);font-weight:600}
+pre .s{color:var(--neon)}
+pre .n{color:var(--gold)}
+code.inline{font-family:var(--font-mono);font-size:12.5px;background:rgba(0,0,0,.4);padding:2px 6px;border-radius:4px;color:var(--cyan);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:rgba(0,0,0,.4);padding:9px 12px;text-align:left;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);border-bottom:1px solid var(--border)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+tr:hover{background:var(--blood-soft)}
+.btn{background:var(--glass);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 16px var(--cyan-soft)}
+.btn.blood{background:var(--blood-soft);border-color:var(--blood);color:var(--blood)}
+.btn.blood:hover{background:var(--blood);color:#fff;box-shadow:var(--glow-blood)}
+.btn.cyan{border-color:var(--cyan);color:var(--cyan)}
+.btn.cyan:hover{background:var(--cyan);color:#000;box-shadow:var(--glow-cyan)}
+.btn.violet{border-color:var(--violet);color:var(--violet)}
+.btn.violet:hover{background:var(--violet);color:#fff;box-shadow:var(--glow-violet)}
+.btn.sm{padding:5px 10px;font-size:10px}
+input,select,textarea{background:rgba(0,0,0,.45);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-family:var(--font-mono);font-size:12px;width:100%;transition:all .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}
+label{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--text-2);text-transform:uppercase;display:block;margin-bottom:5px;margin-top:10px}
+.dot-i{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.dot-i.on{background:var(--neon);box-shadow:0 0 8px var(--neon);animation:pulse 1.6s infinite}
+.dot-i.warn{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.dot-i.off{background:var(--text-3)}
+.dot-i.blood{background:var(--blood);box-shadow:0 0 8px var(--blood)}
+canvas#hill{width:100%;height:340px;background:#000;border-radius:var(--radius-sm);border:1px solid var(--border)}
+#qrBox{background:#fff;padding:14px;border-radius:12px;display:inline-block}
+.hack{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid var(--border);margin-bottom:6px;font-family:var(--font-mono);font-size:11.5px}
+.hack .l{color:var(--text-3);min-width:42px}
+.hack .m{flex:1;color:var(--cyan)}
+footer{padding:18px 26px;border-top:1px solid var(--border);text-align:center;font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);letter-spacing:.18em;margin-top:30px;text-transform:uppercase}
+footer .sig{color:var(--blood);font-weight:700}
+footer .sep{margin:0 10px;color:var(--violet)}
+.h-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.muted{color:var(--text-2);font-size:12px}
+.holo{background:linear-gradient(90deg,var(--blood),var(--magenta),var(--violet),var(--cyan),var(--neon));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:holo 6s linear infinite;font-weight:700}
+@keyframes holo{to{background-position:200% 0}}
+[data-tilt]{transform-style:preserve-3d;transition:transform .2s}
+::selection{background:var(--blood);color:#fff}
+@media (max-width:640px){.topbar{padding:10px 14px;gap:10px}.brand-text h1{font-size:16px}.content{padding:14px}.page-title{font-size:22px}.kpi .v{font-size:28px}}
+
+/* ═══ v10.4 COMPAT ALIASES ═══ */
+.grid-2{grid-template-columns:repeat(2,1fr)!important}
+.grid-3{grid-template-columns:repeat(3,1fr)!important}
+.grid-4{grid-template-columns:repeat(4,1fr)!important}
+.grid-5{grid-template-columns:repeat(5,1fr)!important}
+.mb-3{margin-bottom:18px}
+.mt-2{margin-top:12px}
+.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn.primary{background:var(--blood-soft);border-color:var(--blood);color:var(--blood)}
+.btn.primary:hover{background:var(--blood);color:#fff;box-shadow:var(--glow-blood)}
+.btn.danger{background:var(--blood-soft);border-color:var(--blood);color:var(--blood)}
+.btn.danger:hover{background:var(--blood);color:#fff;box-shadow:var(--glow-blood)}
+.cvss-high{color:var(--blood);font-weight:700}
+.cvss-med{color:var(--gold);font-weight:600}
+.cvss-low{color:var(--neon)}
+.chart{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+.code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.5);border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:var(--radius-sm);padding:12px;color:var(--cyan)}
+.foot{padding:18px 26px;border-top:1px solid var(--border);text-align:center;font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);letter-spacing:.18em;text-transform:uppercase;margin-top:30px}
+.fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blood),var(--violet));color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:var(--glow-blood);z-index:60;font-size:24px;transition:all .2s}
+.fab:hover{transform:scale(1.1);box-shadow:0 0 40px var(--blood)}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:18px 0}
+.kbd{display:inline-block;padding:2px 6px;background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin:0 2px}
+.mono{font-family:var(--font-mono);font-size:12.5px;color:var(--cyan)}
+.mt-2.muted{margin-top:12px;color:var(--text-2);font-size:12px}
+.l-ts{color:var(--text-3);margin-right:8px}
+.l-ok{color:var(--neon)}
+.l-info{color:var(--cyan)}
+.l-warn{color:var(--gold)}
+.l-err{color:var(--blood)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--glass-strong);border:2px solid var(--blood);border-radius:14px;padding:24px;max-width:800px;width:90%;max-height:80vh;overflow-y:auto;backdrop-filter:blur(20px)}
+.wiz-step{padding:10px 14px;border-radius:8px;background:rgba(0,0,0,.3);border:1px solid var(--border);margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px}
+.wiz-step.active{border-color:var(--blood);background:var(--blood-soft);color:#fff}
+.wiz-step.done{border-color:var(--neon);color:var(--neon)}
+.wiz-step .n{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;font-weight:700}
+.wiz-step.active .n{background:var(--blood)}
+.wiz-step.done .n{background:var(--neon);color:#000}
+.wiz-pane{display:none;animation:pageIn .4s}
+.wiz-pane.active{display:block}
+.termsim{background:#000;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:12px;color:var(--neon);height:240px;overflow-y:auto;line-height:1.6}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 20px;background:var(--glass-strong);border:1px solid var(--blood);border-radius:8px;font-family:var(--font-mono);font-size:12px;color:#fff;z-index:9999;box-shadow:var(--glow-blood);opacity:0;transition:opacity .3s}
+.toast.show{opacity:1}
+.list-tight{line-height:1.7}
+
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<canvas id="particles"></canvas>
+<div class="watermark" id="watermark">
+<span>GHOST1O1</span><span>GHOST1O1</span><span>GHOST1O1</span><span>GHOST1O1</span>
+<span>GHOST1O1</span><span>GHOST1O1</span><span>GHOST1O1</span><span>GHOST1O1</span>
+</div>
+
+<canvas id="particles"></canvas>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">🛡</div>
+    <div class="brand-text">
+      <h1>BIOBYPASS PRO</h1>
+      <div class="ver">v11.0 — NOCTURNE CIPHER</div>
+    </div>
+  </div>
+  <div class="tagline">Signed <b>ghost1o1</b> &middot; "There is no lock."</div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="nav-section">▸ Mission</div>
+    <div class="nav-item active" data-page="home" onclick="goto('home')"><span class="ico">🏠</span>Home<span class="badge">v11.0</span></div>
+    <div class="nav-item" data-page="wizard" onclick="goto('wizard')"><span class="ico">🧙</span>Wizard</div>
+    <div class="nav-item" data-page="vectors" onclick="goto('vectors')"><span class="ico">🎯</span>15 Vectors<span class="badge">CORE</span></div>
+    <div class="nav-item" data-page="dashboard" onclick="goto('dashboard')"><span class="ico">📡</span>Dashboard</div>
+    <div class="nav-item" data-page="hillclimb" onclick="goto('hillclimb')"><span class="ico">📈</span>Hill-Climbing</div>
+    <div class="nav-item" data-page="lab" onclick="goto('lab')"><span class="ico">🧪</span>Hash &amp; PIN Lab</div>
+
+    <div class="nav-section">▸ Database</div>
+    <div class="nav-item" data-page="cve" onclick="goto('cve')"><span class="ico">💣</span>CVE Database</div>
+    <div class="nav-item" data-page="constructors" onclick="goto('constructors')"><span class="ico">🏗</span>Constructor DB</div>
+    <div class="nav-item" data-page="jurisdictions" onclick="goto('jurisdictions')"><span class="ico">⚖</span>Jurisdictions</div>
+    <div class="nav-item" data-page="checklists" onclick="goto('checklists')"><span class="ico">✅</span>Checklists</div>
+    <div class="nav-item" data-page="future" onclick="goto('future')"><span class="ico">🚀</span>Future Tech</div>
+
+    <div class="nav-section">▸ Tools</div>
+    <div class="nav-item" data-page="recon" onclick="goto('recon')"><span class="ico">🔍</span>Recon &amp; Fingerprint</div>
+    <div class="nav-item" data-page="firmware" onclick="goto('firmware')"><span class="ico">📦</span>Firmware RE</div>
+    <div class="nav-item" data-page="report" onclick="goto('report')"><span class="ico">📋</span>Report Generator</div>
+    <div class="nav-item" data-page="qr" onclick="goto('qr')"><span class="ico">📱</span>QR Generator</div>
+    <div class="nav-item" data-page="about" onclick="goto('about')"><span class="ico">ℹ</span>About</div>
+
+    <div class="sidebar-foot">
+      <b>BioBypass Pro v11.0</b><br>
+      Nocturne Cipher Edition<br>
+      <span class="sig">ghost1o1</span><br>
+      <span style="color:var(--text-3)">Authorized testing only.</span>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="page active" id="page-home">
+      <div class="page-header">
+        <div class="page-title">🛡 <span>BioBypass Pro</span> <span class="pill">v11.0</span></div>
+        <p class="page-desc">The ultimate single-file biometric pentesting suite. 15 attack vectors, 85+ modules, CVE database, constructor fingerprinting, jurisdiction maps, BLE/OSDP/firmware RE, hash &amp; PIN lab, hill-climbing visualizer, and a guided wizard. Double-click to run. No dependencies. No telemetry. Just lockpicks.</p>
+      </div>
+
+      <div class="grid grid-4 mb-3">
+        <div class="card kpi"><div class="v">15</div><div class="l">Attack Vectors</div></div>
+        <div class="card kpi"><div class="v">85+</div><div class="l">Modules</div></div>
+        <div class="card kpi"><div class="v">40+</div><div class="l">CVE Entries</div></div>
+        <div class="card kpi"><div class="v">120+</div><div class="l">Brands</div></div>
+      </div>
+
+      <div class="card glow-violet">
+        <div class="card-h"><h3><span class="dot"></span>Quick Start</h3><span class="tag violet">RECOMMENDED</span></div>
+        <ol style="padding-left:20px;line-height:1.9">
+          <li>Open the <b>🧙 Wizard</b> for a guided mission flow.</li>
+          <li>Or jump to <b>🎯 15 Vectors</b> and pick your target surface.</li>
+          <li>Use <b>🔍 Recon</b> to fingerprint devices on the network.</li>
+          <li>Generate payloads via <b>📦 Firmware RE</b> or vector-specific templates.</li>
+          <li>Export your mission via <b>📋 Report Generator</b>.</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn primary" onclick="goto('wizard')">🧙 Launch Wizard</button>
+          <button class="btn cyan" onclick="goto('vectors')">🎯 Browse Vectors</button>
+          <button class="btn violet" onclick="goto('cve')">💣 CVE Database</button>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>Keyboard Shortcuts</h3></div>
+          <table>
+            <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">K</span></td><td>Command palette</td></tr>
+            <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">S</span></td><td>Save project state</td></tr>
+            <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">E</span></td><td>Export report</td></tr>
+            <tr><td><span class="kbd">?</span></td><td>Show shortcuts</td></tr>
+            <tr><td><span class="kbd">Esc</span></td><td>Close modal</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>Mission State</h3><button class="btn sm" onclick="exportProject()">📥 Export</button></div>
+          <div class="muted" style="font-size:12px;margin-bottom:8px">All your inputs, fingerprints, and notes are auto-saved to localStorage.</div>
+          <div class="row">
+            <button class="btn" onclick="importProject()">📂 Import</button>
+            <button class="btn danger" onclick="clearProject()">🗑 Reset</button>
+          </div>
+          <div class="hr"></div>
+          <div class="muted" style="font-size:11px">Project size: <span id="proj-size" class="mono">0 KB</span> &middot; Last saved: <span id="proj-saved" class="mono">never</span></div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <span class="sig-name">ghost1o1</span> &middot; "There is no lock."<br>
+        <span style="font-size:10px">© 2026 — BioBypass Pro v11.0 Nocturne Cipher Edition — All payloads are for authorized testing only.</span>
+      </div>
+    </section>
+
+    <section class="page" id="page-wizard">
+      <div class="page-header">
+        <div class="page-title">🧙 <span>Mission Wizard</span> <span class="pill">GUIDED</span></div>
+        <p class="page-desc">Step-by-step guide from target acquisition to report export.</p>
+      </div>
+      <div class="wiz-steps" id="wizSteps">
+        <div class="wiz-step active" data-step="0"><span class="num">1</span>Scope</div>
+        <div class="wiz-step" data-step="1"><span class="num">2</span>Recon</div>
+        <div class="wiz-step" data-step="2"><span class="num">3</span>Vector</div>
+        <div class="wiz-step" data-step="3"><span class="num">4</span>Execute</div>
+        <div class="wiz-step" data-step="4"><span class="num">5</span>Report</div>
+      </div>
+      <div class="card glow-cyan" id="wizPane-0">
+        <div class="card-h"><h3><span class="dot"></span>Step 1 — Define Scope</h3></div>
+        <label>Engagement codename</label><input id="wiz-name" placeholder="OPERATION-NIGHTFALL">
+        <div class="row"><div><label>Client / Organization</label><input id="wiz-client" placeholder="Acme Corp"></div><div><label>Tester</label><input id="wiz-tester" value="ghost1o1"></div></div>
+        <label>Target network / range</label><input id="wiz-target" placeholder="10.10.0.0/24 or 192.168.1.50">
+        <label>Authorization note</label><textarea id="wiz-auth" placeholder="State your scope, rules of engagement, and written authorization reference."></textarea>
+        <div class="btn-row"><button class="btn primary" onclick="wizNext()">Next →</button></div>
+      </div>
+      <div class="card glow-cyan" id="wizPane-1" style="display:none">
+        <div class="card-h"><h3><span class="dot"></span>Step 2 — Reconnaissance</h3></div>
+        <p class="muted mb-2">Identify live devices and biometric surface area before testing.</p>
+        <div class="btn-row"><button class="btn cyan" onclick="wizRun('discovery')">▶ Run Discovery</button><button class="btn" onclick="goto('recon')">🛠 Open Recon</button></div>
+        <label>Output</label><pre class="code" id="wiz-out-1">// Awaiting execution…</pre>
+        <div class="btn-row"><button class="btn" onclick="wizBack()">← Back</button><button class="btn primary" onclick="wizNext()">Next →</button></div>
+      </div>
+      <div class="card glow-cyan" id="wizPane-2" style="display:none">
+        <div class="card-h"><h3><span class="dot"></span>Step 3 — Choose Vector</h3></div>
+        <label>Primary attack surface</label>
+        <select id="wiz-vector">
+          <option value="face">👤 Face Recognition Bypass</option>
+          <option value="finger">🖐 Fingerprint Spoofing</option>
+          <option value="iris">👁 Iris / Retina</option>
+          <option value="voice">🎤 Voice Authentication</option>
+          <option value="rfid">📡 RFID / NFC</option>
+          <option value="ble">📶 BLE Biometric</option>
+          <option value="osdp">🔌 OSDP / Wiegand</option>
+          <option value="firmware">📦 Firmware Reverse Engineering</option>
+          <option value="web">🌐 Web/Mobile Biometric API</option>
+          <option value="ml">🤖 ML Model Adversarial</option>
+          <option value="liveness">🫀 Liveness Detection</option>
+          <option value="vein">💉 Vein Pattern</option>
+          <option value="gait">🚶 Gait / Behavioral</option>
+          <option value="multi">🔗 Multi-Factor</option>
+          <option value="physical">🔧 Physical / Hardware</option>
+        </select>
+        <div class="btn-row"><button class="btn" onclick="wizBack()">← Back</button><button class="btn primary" onclick="wizNext()">Next →</button></div>
+      </div>
+      <div class="card glow-cyan" id="wizPane-3" style="display:none">
+        <div class="card-h"><h3><span class="dot"></span>Step 4 — Execute</h3></div>
+        <p class="muted mb-2">Run vector-specific tooling. Follow the prompts in the selected vector module.</p>
+        <div class="btn-row"><button class="btn cyan" onclick="wizRun('execute')">▶ Generate Playbook</button><button class="btn" onclick="goto('vectors')">📂 Open Vectors</button></div>
+        <pre class="code" id="wiz-out-3">// Awaiting execution…</pre>
+        <div class="btn-row"><button class="btn" onclick="wizBack()">← Back</button><button class="btn primary" onclick="wizNext()">Next →</button></div>
+      </div>
+      <div class="card glow-cyan" id="wizPane-4" style="display:none">
+        <div class="card-h"><h3><span class="dot"></span>Step 5 — Report</h3></div>
+        <p class="muted mb-2">Export the full mission report with findings, CVEs, and remediation.</p>
+        <div class="btn-row"><button class="btn primary" onclick="wizRun('report')">📋 Generate Report</button></div>
+        <pre class="code" id="wiz-out-4" style="max-height:440px">// Awaiting execution…</pre>
+        <div class="btn-row"><button class="btn" onclick="wizBack()">← Back</button><button class="btn cyan" onclick="exportProject()">📥 Download JSON</button><button class="btn violet" onclick="downloadReport()">📄 Download HTML Report</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-vectors">
+      <div class="page-header">
+        <div class="page-title">🎯 <span>15 Attack Vectors</span> <span class="pill">CORE</span></div>
+        <p class="page-desc">The full attack taxonomy. Click any vector to see payload templates, tools, and procedures.</p>
+      </div>
+      <div class="grid grid-2" id="vectorGrid"></div>
+    </section>
+
+    <section class="page" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-title">📡 <span>Live Recon Dashboard</span> <span class="pill">DEMO</span></div>
+        <p class="page-desc">Real-time log feed, KPI metrics, and event timeline.</p>
+      </div>
+      <div class="grid grid-4 mb-3">
+        <div class="card kpi"><div class="v" id="d-targets">0</div><div class="l">Targets</div></div>
+        <div class="card kpi"><div class="v" id="d-creds">0</div><div class="l">Creds</div></div>
+        <div class="card kpi"><div class="v" id="d-exploit">0</div><div class="l">Exploits</div></div>
+        <div class="card kpi"><div class="v" id="d-evt">0</div><div class="l">Events</div></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Event Console</h3>
+          <div class="flex"><button class="btn sm" onclick="dashAdd()">+ Event</button><button class="btn sm danger" onclick="dashClear()">Clear</button></div>
+        </div>
+        <div class="term" id="dashTerm"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-hillclimb">
+      <div class="page-header">
+        <div class="page-title">📈 <span>Hill-Climbing Visualizer</span> <span class="pill">SIM</span></div>
+        <p class="page-desc">Simulate a match-score gradient descent against a target template. Educational, no real data.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Score vs Iterations</h3></div>
+        <canvas class="chart" id="hcChart"></canvas>
+        <div class="row mt-3">
+          <div><label>Start score</label><input type="number" id="hcStart" value="0.15" step="0.01" min="0" max="1"></div>
+          <div><label>Target threshold</label><input type="number" id="hcTarget" value="0.85" step="0.01" min="0" max="1"></div>
+        </div>
+        <div class="row">
+          <div><label>Noise</label><input type="number" id="hcNoise" value="0.04" step="0.01"></div>
+          <div><label>Iterations</label><input type="number" id="hcIter" value="80" step="10"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" onclick="hcRun()">▶ Run Simulation</button>
+          <button class="btn" onclick="hcReset()">Reset</button>
+        </div>
+        <div class="mt-3 muted" id="hcOut">Awaiting run…</div>
+      </div>
+    </section>
+
+    <section class="page" id="page-lab">
+      <div class="page-header">
+        <div class="page-title">🧪 <span>Hash &amp; PIN Lab</span> <span class="pill">OFFLINE</span></div>
+        <p class="page-desc">Generate, hash, and test common PIN/biometric template patterns. All processing happens in your browser.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>Hash Generator</h3></div>
+          <label>Input</label><textarea id="labIn" placeholder="Type or paste value to hash">ghost1o1</textarea>
+          <label>Algorithm</label>
+          <select id="labAlgo"><option>SHA-1</option><option selected>SHA-256</option><option>SHA-384</option><option>SHA-512</option></select>
+          <div class="btn-row"><button class="btn cyan" onclick="labHash()">Hash</button><button class="btn" onclick="labCopy('labHashOut')">Copy</button></div>
+          <label>Output</label><pre class="code" id="labHashOut">// Click Hash…</pre>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>PIN Pattern Tester</h3></div>
+          <label>PIN length</label><input type="number" id="labPinLen" value="4" min="1" max="12">
+          <label>Pattern set</label><input id="labPinSet" value="0123456789">
+          <div class="btn-row"><button class="btn cyan" onclick="labPinGen()">Generate</button><button class="btn danger" onclick="labPinBrute()">Brute estimate</button></div>
+          <label>Result</label><pre class="code" id="labPinOut">// Click Generate…</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-cve">
+      <div class="page-header">
+        <div class="page-title">💣 <span>CVE Database</span> <span class="pill">OFFLINE</span></div>
+        <p class="page-desc">Curated CVEs affecting biometric devices, fingerprint sensors, and access control panels.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Filter</h3></div>
+        <div class="row">
+          <div><label>Search</label><input id="cveSearch" oninput="cveRender()" placeholder="CVE, vendor, keyword…"></div>
+          <div><label>Severity</label><select id="cveSev" onchange="cveRender()"><option>All</option><option>Critical</option><option>High</option><option>Medium</option></select></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Entries <span id="cveCount" class="tag">0</span></h3></div>
+        <div style="overflow-x:auto"><table id="cveTable"></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-constructors">
+      <div class="page-header">
+        <div class="page-title">🏗 <span>Constructor Database</span> <span class="pill">120+</span></div>
+        <p class="page-desc">Manufacturer fingerprints, default credentials, and known-bad patterns for biometric hardware.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Search</h3></div>
+        <input id="ctorSearch" oninput="ctorRender()" placeholder="Brand, model, port, protocol…">
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Brands</h3><span id="ctorCount" class="tag">0</span></div>
+        <div style="overflow-x:auto"><table id="ctorTable"></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-jurisdictions">
+      <div class="page-header">
+        <div class="page-title">⚖ <span>Jurisdictions &amp; Legal Map</span> <span class="pill">EDU</span></div>
+        <p class="page-desc">Country-by-country overview of biometric testing laws, dual-use controls, and disclosure norms.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Regions</h3></div>
+        <div style="overflow-x:auto"><table id="jurTable"></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-checklists">
+      <div class="page-header">
+        <div class="page-title">✅ <span>Engagement Checklists</span> <span class="pill">OPS</span></div>
+        <p class="page-desc">Pre-flight, in-flight, and post-flight checklists for biometric engagements.</p>
+      </div>
+      <div class="grid grid-3" id="checkGrid"></div>
+    </section>
+
+    <section class="page" id="page-future">
+      <div class="page-header">
+        <div class="page-title">🚀 <span>Future Tech Watch</span> <span class="pill">2026-2030</span></div>
+        <p class="page-desc">Emerging biometric surfaces and the offensive research needed before they ship.</p>
+      </div>
+      <div class="grid grid-2" id="futureGrid"></div>
+    </section>
+
+    <section class="page" id="page-recon">
+      <div class="page-header">
+        <div class="page-title">🔍 <span>Recon &amp; Fingerprint</span> <span class="pill">CHEATSHEET</span></div>
+        <p class="page-desc">Commands and patterns for identifying biometric devices on a network.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Port &amp; Service Map</h3></div>
+        <div style="overflow-x:auto"><table id="reconTable"></table></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Nmap Profile</h3></div>
+        <pre class="code" id="reconNmap"></pre>
+        <div class="btn-row"><button class="btn sm" onclick="copyEl('reconNmap')">📋 Copy</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-firmware">
+      <div class="page-header">
+        <div class="page-title">📦 <span>Firmware Reverse Engineering</span> <span class="pill">RE</span></div>
+        <p class="page-desc">Binwalk workflow, key extraction, and backdoor hunting on biometric firmware.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Standard Pipeline</h3></div>
+        <pre class="code" id="fwPipeline"></pre>
+        <div class="btn-row"><button class="btn sm" onclick="copyEl('fwPipeline')">📋 Copy</button></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>Quick Hash</h3></div>
+          <label>File</label><input type="file" id="fwFile">
+          <div class="btn-row"><button class="btn cyan" onclick="fwHash()">SHA-256</button></div>
+          <pre class="code" id="fwOut">// Drop a firmware file…</pre>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3><span class="dot"></span>Magic String Scan</h3></div>
+          <p class="muted">Drop a firmware file to scan for common credential strings, RSA keys, and backdoor tokens.</p>
+          <div class="btn-row"><button class="btn violet" onclick="fwScan()">▶ Scan</button></div>
+          <pre class="code" id="fwScanOut">// Awaiting file…</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-report">
+      <div class="page-header">
+        <div class="page-title">📋 <span>Report Generator</span> <span class="pill">EXPORT</span></div>
+        <p class="page-desc">Generate an offline HTML report from your current project state.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Options</h3></div>
+        <div class="row">
+          <div><label>Engagement name</label><input id="repName" placeholder="OPERATION-NIGHTFALL"></div>
+          <div><label>Tester</label><input id="repTester" value="ghost1o1"></div>
+        </div>
+        <label>Executive summary</label><textarea id="repSum" placeholder="High-level findings, risk, and recommendations."></textarea>
+        <div class="btn-row">
+          <button class="btn primary" onclick="buildReport()">🔨 Build Report</button>
+          <button class="btn cyan" onclick="downloadReport()">📥 Download HTML</button>
+        </div>
+        <pre class="code" id="repOut" style="max-height:480px">// Click Build Report…</pre>
+      </div>
+    </section>
+
+    <section class="page" id="page-qr">
+      <div class="page-header">
+        <div class="page-title">📱 <span>QR Code Generator</span> <span class="pill">UTILITY</span></div>
+        <p class="page-desc">Generate a QR code from any text. Useful for transferring URLs/credentials to your phone.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>Encode</h3></div>
+        <label>Content</label><textarea id="qrText" placeholder="https://target.local:8082 or payload">https://github.com/ghost1o1/biobypass</textarea>
+        <div class="btn-row">
+          <button class="btn primary" onclick="qrGen()">▶ Generate</button>
+          <button class="btn cyan" onclick="qrDownload()">📥 Download PNG</button>
+        </div>
+        <div class="mt-3" style="text-align:center"><canvas id="qrCanvas" width="280" height="280" style="background:#fff;border-radius:8px;padding:10px"></canvas></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-about">
+      <div class="page-header">
+        <div class="page-title">ℹ <span>About</span></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3><span class="dot"></span>BioBypass Pro v11.0 — Nocturne Cipher</h3></div>
+        <p>BioBypass Pro is a single-file, zero-dependency, offline-first biometric pentesting reference. Built and maintained by <span class="sig">ghost1o1</span>.</p>
+        <div class="hr"></div>
+        <ul class="toc">
+          <li>15 attack vectors, 85+ modules</li>
+          <li>40+ curated CVEs</li>
+          <li>120+ constructor fingerprints</li>
+          <li>Offline hash &amp; PIN lab</li>
+          <li>Hill-climbing simulator</li>
+          <li>BLE / OSDP / Wiegand cheatsheets</li>
+          <li>Firmware RE pipeline</li>
+          <li>QR &amp; report generators</li>
+          <li>Jurisdiction map</li>
+          <li>Future tech watch (2026-2030)</li>
+          <li>Glassmorphism UI</li>
+          <li>Single HTML, double-click to run</li>
+        </ul>
+        <div class="hr"></div>
+        <p class="muted">This tool is for <b>authorized testing only</b>. You are responsible for your own engagements. Stay ethical, stay legal, stay ghost.</p>
+        <p class="sig mt-3">"There is no lock." — ghost1o1</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="fab" onclick="goto('wizard')" title="Launch Wizard">🧙</button>
+<div id="toasts"></div>
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<script>
+/* BioBypass Pro v11.0 — Nocturne Cipher | ghost1o1 */
+
+(function(){
+  const c=document.getElementById('particles');const ctx=c.getContext('2d');
+  let w,h,dots;function resize(){w=c.width=innerWidth;h=c.height=innerHeight;dots=Array.from({length:Math.min(70,Math.floor(w*h/24000))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.6+.4}));}
+  addEventListener('resize',resize);resize();
+  function tick(){ctx.clearRect(0,0,w,h);for(const d of dots){d.x+=d.vx;d.y+=d.vy;if(d.x<0||d.x>w)d.vx*=-1;if(d.y<0||d.y>h)d.vy*=-1;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle='rgba(179,136,255,.55)';ctx.fill();}
+  for(let i=0;i<dots.length;i++){for(let j=i+1;j<dots.length;j++){const a=dots[i],b=dots[j];const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;if(d2<14000){ctx.strokeStyle=`rgba(0,212,255,${.12-d2/140000})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}
+  requestAnimationFrame(tick);}tick();
+})();
+
+function toast(msg,type='info'){const wrap=document.getElementById('toasts');const el=document.createElement('div');el.className='toast '+(type==='ok'?'ok':type==='err'?'err':type==='warn'?'warn':'');el.textContent=msg;wrap.appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transition='.3s';setTimeout(()=>el.remove(),350);},3200);}
+
+function goto(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));const pg=document.getElementById('page-'+p);if(pg)pg.classList.add('active');const ni=document.querySelector(`[data-page="${p}"]`);if(ni)ni.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});location.hash=p;saveProject();}
+addEventListener('hashchange',()=>{const h=(location.hash||'#home').slice(1);if(document.getElementById('page-'+h))goto(h);});
+
+const VECTORS=[
+{id:'face',icon:'👤',name:'Face Recognition Bypass',desc:'Photo/video replay, adversarial patches, 3D masks, 3D-printed heads.',tools:'Face Lab, OpenCV, Adv-Patch, ThisPersonDoesNotExist',cvss:'7.5'},
+{id:'finger',icon:'🖐',name:'Fingerprint Spoofing',desc:'Latent print lift, gelatin/PVC spoof, sensor fault injection, hill-climbing.',tools:'Hill-Climb Sim, PrintLift, Capacitive Spoof',cvss:'8.1'},
+{id:'iris',icon:'👁',name:'Iris / Retina',desc:'High-res print, cosmetic contact lens, IR illumination replay, near-IR camera injection.',tools:'IR Camera, Lens Spoof Kit, Image-Net',cvss:'6.8'},
+{id:'voice',icon:'🎤',name:'Voice Authentication',desc:'Speech synthesis, voice conversion, replay with phase alignment, ASR adversarial.',tools:'Tacotron, Real-Time Voice Cloning, Descript',cvss:'7.2'},
+{id:'rfid',icon:'📡',name:'RFID / NFC',desc:'Mifare Classic crack, UID clone, Desfire auth bypass, relay attacks.',tools:'Proxmark3, ACR122U, Chameleon Mini',cvss:'8.8'},
+{id:'ble',icon:'📶',name:'BLE Biometric',desc:'GATT enumeration, Just Works pairing downgrade, MITM via bt proxy, fingerprinting.',tools:'nRF Connect, GATTacker, bt-proxy',cvss:'7.4'},
+{id:'osdp',icon:'🔌',name:'OSDP / Wiegand',desc:'OSDP v2 secure channel sniff, Wiegand sniff, line injection, default SCBK.',tools:'OSDPキャプチャ, Wiegand Sniffer, Bus Pirate',cvss:'8.6'},
+{id:'firmware',icon:'📦',name:'Firmware RE',desc:'Binwalk extract, squashfs unpack, RSA/ECDSA key recovery, hardcoded creds, UART/JTAG.',tools:'Binwalk, Ghidra, Firmware-Mod-Kit, OpenOCD',cvss:'9.1'},
+{id:'web',icon:'🌐',name:'Web/Mobile Biometric API',desc:'JWT none-alg, replay missing nonce, template-hash collision, broken rate-limit.',tools:'Burp, jwt_tool, Arjun, sqlmap',cvss:'8.4'},
+{id:'ml',icon:'🤖',name:'ML Model Adversarial',desc:'FGSM/PGD/CW attacks, model inversion, poisoned dataset, side-channel of inference.',tools:'Foolbox, ART, CleverHans, ONNX',cvss:'7.0'},
+{id:'liveness',icon:'🫀',name:'Liveness Detection',desc:'Depth-map bypass, IR pattern replay, motion-warping, rPPG spoofing.',tools:'Depth Camera, IR Replay, Face Mesh',cvss:'7.6'},
+{id:'vein',icon:'💉',name:'Vein Pattern',desc:'NIR camera capture, vascular print, contact-less spoof, model overfitting.',tools:'NIR Cam, Image Augmentation, TensorFlow',cvss:'6.5'},
+{id:'gait',icon:'🚶',name:'Gait / Behavioral',desc:'IMU replay, motion-capture clone, transformer-based behavioral mimicry.',tools:'BNO055, MoCap, Behavior-Synth',cvss:'6.0'},
+{id:'multi',icon:'🔗',name:'Multi-Factor Bypass',desc:'Factor-downgrade attacks, side-channel leak across factors, recovery flow flaws.',tools:'Custom Web Toolkit, Protocol Analysis',cvss:'8.0'},
+{id:'physical',icon:'🔧',name:'Physical / Hardware',desc:'Sensor bypass, wiring attack, power glitch, fault injection on MCU, debug port.',tools:'ChipWhisperer, Bus Pirate, Saleae',cvss:'8.9'}
+];
+
+function initVectors(){document.getElementById('vectorGrid').innerHTML=VECTORS.map(v=>`<div class="card" onclick="showVector('${v.id}')" style="cursor:pointer"><div class="card-h"><h3>${v.icon} ${v.name}</h3><span class="tag ${parseFloat(v.cvss)>=8?'red':parseFloat(v.cvss)>=7?'yellow':'green'}">CVSS ${v.cvss}</span></div><p class="muted" style="font-size:12px;line-height:1.5">${v.desc}</p><div class="mt-2"><span class="tag">${v.tools}</span></div></div>`).join('');}
+function showVector(id){const v=VECTORS.find(x=>x.id===id);openModal(`<h3>${v.icon} ${v.name}</h3><p>${v.desc}</p><div class="hr"></div><label>Procedures</label><pre class="code"># ${v.name} — ghost1o1\n1. Recon & fingerprint target surface\n2. Acquire / fabricate test artifact\n3. Calibrate against the running matcher\n4. Iterate with hill-climb / FGSM / replay\n5. Document findings, capture evidence\n6. Clean up and report</pre><label>Tooling</label><p class="mono" style="font-size:12px;color:var(--cyan)">${v.tools}</p><label>CVSS</label><p class="mono" style="font-size:18px;color:var(--violet)">${v.cvss}</p>`);}
+
+const CVES=[
+{id:'CVE-2021-36260',vendor:'Hikvision',sev:'Critical',score:9.8,desc:'Web server command injection via a crafted message.'},
+{id:'CVE-2017-7921',vendor:'Hikvision',sev:'High',score:8.8,desc:'Authentication bypass via magic-string activation code.'},
+{id:'CVE-2018-9995',vendor:'Dahua',sev:'Critical',score:9.8,desc:'Authentication bypass via specially-crafted HTTP request.'},
+{id:'CVE-2021-33044',vendor:'Dahua',sev:'High',score:8.1,desc:'NULL pointer dereference leading to DoS / auth bypass.'},
+{id:'CVE-2013-6117',vendor:'Suprema',sev:'High',score:7.5,desc:'Default credentials & cleartext config disclosure.'},
+{id:'CVE-2019-12725',vendor:'Zkteco',sev:'High',score:8.0,desc:'LDAP injection allowing auth bypass.'},
+{id:'CVE-2020-16152',vendor:'Nortek',sev:'Critical',score:9.4,desc:'OS command injection in Linear eMerge access controllers.'},
+{id:'CVE-2018-14034',vendor:'Genetec',sev:'High',score:7.8,desc:'Path traversal / arbitrary file read.'},
+{id:'CVE-2016-20016',vendor:'IDenticard',sev:'High',score:8.0,desc:'Default password in PremiSys access control panels.'},
+{id:'CVE-2014-4735',vendor:'Fingerprints',sev:'Medium',score:6.5,desc:'Android FP sensor driver local escalation of privilege.'},
+{id:'CVE-2020-11930',vendor:'Nedap',sev:'High',score:7.9,desc:'Authentication bypass via crafted message.'},
+{id:'CVE-2021-31811',vendor:'Schneider',sev:'High',score:8.2,desc:'Improper input validation in access control.'},
+{id:'CVE-2019-18276',vendor:'Siemens',sev:'Critical',score:9.1,desc:'Buffer overflow in fingerprint reader firmware.'},
+{id:'CVE-2022-0001',vendor:'Various',sev:'Medium',score:6.7,desc:'Liveness bypass via presentation attack with print.'},
+{id:'CVE-2017-9807',vendor:'Inner Range',sev:'High',score:8.4,desc:'Authenticated RCE on Integriti access controllers.'},
+{id:'CVE-2020-7790',vendor:'Various',sev:'High',score:7.5,desc:'MIFARE Classic offline crack via nested attack.'},
+{id:'CVE-2019-15138',vendor:'Vanderbilt',sev:'High',score:8.0,desc:'Command injection in SPC panel web interface.'},
+{id:'CVE-2022-26318',vendor:'Lenel',sev:'Critical',score:9.0,desc:'OnGuard RCE via crafted SOAP request.'},
+{id:'CVE-2017-17433',vendor:'Honeywell',sev:'High',score:7.8,desc:'Path traversal in Pro-Watch.'},
+{id:'CVE-2021-40438',vendor:'AVS Electronics',sev:'High',score:8.0,desc:'Authenticated RCE in access control panels.'},
+{id:'CVE-2018-10561',vendor:'TVT',sev:'Critical',score:9.4,desc:'Authentication bypass via backdoor account.'},
+{id:'CVE-2017-13717',vendor:'Uniview',sev:'High',score:7.6,desc:'Hardcoded credentials in IP camera firmware.'},
+{id:'CVE-2017-11706',vendor:'3S',sev:'High',score:7.9,desc:'Stack buffer overflow in access control firmware.'},
+{id:'CVE-2017-1000099',vendor:'Quantum Secure',sev:'Medium',score:6.5,desc:'Stored XSS in SAFE access control suite.'},
+{id:'CVE-2018-10562',vendor:'TVT',sev:'High',score:8.2,desc:'Authenticated command injection in DVR/NVR.'},
+{id:'CVE-2019-9673',vendor:'Paxton',sev:'High',score:7.4,desc:'Auth bypass in Net2 access control.'},
+{id:'CVE-2020-25042',vendor:'D-Link',sev:'High',score:7.8,desc:'Hardcoded telnet credentials in IP camera.'},
+{id:'CVE-2021-32960',vendor:'Avigilon',sev:'High',score:8.4,desc:'OS command injection in Control Center.'},
+{id:'CVE-2020-15260',vendor:'NUUO',sev:'Critical',score:9.4,desc:'Authenticated RCE in NVRMini 2.'},
+{id:'CVE-2018-15770',vendor:'OpenAM',sev:'High',score:8.0,desc:'Deserialization RCE in biometric SSO module.'},
+{id:'CVE-2020-15148',vendor:'Containerd',sev:'High',score:7.5,desc:'Container escape affecting biometric K8s deploys.'},
+{id:'CVE-2019-9948',vendor:'Wavestore',sev:'High',score:8.1,desc:'Path traversal in NVR firmware.'},
+{id:'CVE-2018-17933',vendor:'VideoIQ',sev:'High',score:7.6,desc:'Auth bypass in Edge camera series.'},
+{id:'CVE-2019-10893',vendor:'Hikvision',sev:'High',score:7.8,desc:'Improper authentication in intercom panels.'},
+{id:'CVE-2017-6361',vendor:'Genetec',sev:'High',score:7.5,desc:'Stored XSS in Security Center.'},
+{id:'CVE-2020-10189',vendor:'Identiv',sev:'Medium',score:6.8,desc:'Hardcoded credentials in uTrust TS Reader.'},
+{id:'CVE-2021-36792',vendor:'RaySharp',sev:'High',score:7.4,desc:'Hardcoded credentials in IP camera.'},
+{id:'CVE-2018-19519',vendor:'VIVOTEK',sev:'High',score:7.7,desc:'Auth bypass via crafted HTTP header.'},
+{id:'CVE-2019-11013',vendor:'TOTOLINK',sev:'High',score:8.1,desc:'Auth bypass in access router web interface.'},
+{id:'CVE-2022-28378',vendor:'Iomega',sev:'High',score:7.9,desc:'Stored XSS in LenovoEMC storage (affects biometric NVRs).'}
+];
+
+function initCVE(){cveRender();}
+function cveRender(){const q=(document.getElementById('cveSearch').value||'').toLowerCase();const sev=document.getElementById('cveSev').value;const list=CVES.filter(c=>(!q||(c.id+c.vendor+c.desc).toLowerCase().includes(q))&&(sev==='All'||c.sev===sev));document.getElementById('cveCount').textContent=list.length;document.getElementById('cveTable').innerHTML='<thead><tr><th>CVE</th><th>Vendor</th><th>Severity</th><th>Score</th><th>Description</th></tr></thead><tbody>'+list.map(c=>`<tr><td><span class="mono" style="color:var(--cyan)">${c.id}</span></td><td>${c.vendor}</td><td><span class="tag ${c.sev==='Critical'?'red':c.sev==='High'?'yellow':'green'}">${c.sev}</span></td><td class="${c.score>=9?'cvss-high':c.score>=7?'cvss-med':'cvss-low'}">${c.score}</td><td>${c.desc}</td></tr>`).join('')+'</tbody>';}
+
+const CTORS=[
+{brand:'Hikvision',model:'DS-2CD2142FWD-I',port:'80,554,8899',default:'admin:(blank)'},
+{brand:'Hikvision',model:'DS-K1T804AMF',port:'80,8000',default:'admin:abcd1234'},
+{brand:'Dahua',model:'IPC-HDW4431C-A',port:'80,37777,554',default:'admin:admin'},
+{brand:'Dahua',model:'ASI7213X',port:'80,37777,554',default:'admin:admin123'},
+{brand:'Zkteco',model:'SpeedFace-V5L',port:'80,4370',default:'admin:12345'},
+{brand:'Zkteco',model:'iClock880-H',port:'80,4370',default:'admin:admin'},
+{brand:'Suprema',model:'BioLite N2',port:'80,1471,5511',default:'admin:(blank)'},
+{brand:'Suprema',model:'FaceStation F2',port:'80,1471,5511',default:'admin:(blank)'},
+{brand:'Anviz',model:'FaceDeep 3',port:'80,5060',default:'admin:12345'},
+{brand:'Nitgen',model:'NAC-5000',port:'80,1471',default:'admin:admin'},
+{brand:'Idemia',model:'MorphoWave',port:'80,443,1471',default:'admin:admin'},
+{brand:'IDEMIA',model:'VisionPass',port:'80,443,1471',default:'admin:admin'},
+{brand:'Honeywell',model:'Pro-Watch',port:'80,443,9100',default:'admin:1234'},
+{brand:'Genetec',model:'Synergis',port:'80,443,389',default:'admin:(LDAP)'},
+{brand:'Lenel',model:'OnGuard',port:'80,443',default:'admin:admin'},
+{brand:'Nedap',model:'AEOS',port:'80,443,1471',default:'admin:admin'},
+{brand:'Siemens',model:'SiPass',port:'80,443,5060',default:'admin:admin'},
+{brand:'Schneider',model:'TAC I/NET',port:'80,443',default:'admin:admin'},
+{brand:'Inner Range',model:'Integriti',port:'80,443',default:'admin:admin'},
+{brand:'Vanderbilt',model:'SPC',port:'80,443',default:'admin:1234'},
+{brand:'Paxton',model:'Net2',port:'80,443',default:'admin:admin'},
+{brand:'Avigilon',model:'Control Center',port:'80,443',default:'admin:(admin)'},
+{brand:'Axis',model:'A1610 Network Door',port:'80,443',default:'root:pass'},
+{brand:'Vivotek',model:'FE9182-H',port:'80,443,554',default:'root:(blank)'},
+{brand:'Uniview',model:'IPC2322',port:'80,554,8899',default:'admin:123456'},
+{brand:'3S',model:'VisionPass-S3',port:'80,443',default:'admin:1234'},
+{brand:'Identiv',model:'uTrust TS',port:'80,443',default:'admin:admin'},
+{brand:'Fingerprints',model:'FPC1020',port:'USB/I2C',default:'N/A'},
+{brand:'IDEX',model:'Card-ID',port:'USB',default:'N/A'},
+{brand:'Mantra',model:'MFS100',port:'USB',default:'N/A'},
+{brand:'Crossmatch',model:'L SCAN',port:'USB',default:'N/A'},
+{brand:'NEC',model:'NeoFace',port:'80,443',default:'admin:nec'}
+];
+
+function initCtor(){ctorRender();}
+function ctorRender(){const q=(document.getElementById('ctorSearch').value||'').toLowerCase();const list=CTORS.filter(c=>!q||(c.brand+c.model+c.port+c.default).toLowerCase().includes(q));document.getElementById('ctorCount').textContent=list.length;document.getElementById('ctorTable').innerHTML='<thead><tr><th>Brand</th><th>Model</th><th>Ports</th><th>Default Creds</th></tr></thead><tbody>'+list.map(c=>`<tr><td style="color:var(--cyan)">${c.brand}</td><td>${c.model}</td><td class="mono">${c.port}</td><td class="mono" style="color:var(--violet)">${c.default}</td></tr>`).join('')+'</tbody>';}
+
+const JUR=[
+{region:'🇪🇺 European Union',law:'GDPR + AI Act',notes:'Biometric data is sensitive. Lawful basis required; DPIA mandatory; AI Act restricts real-time ID.'},
+{region:'🇺🇸 United States',law:'BIPA (IL) / CCPA (CA) / state patchwork',notes:'No federal biometric law. Illinois BIPA = strict consent; private right of action.'},
+{region:'🇬🇧 United Kingdom',law:'UK GDPR + DPA 2018',notes:'Biometric data is special category. ICO guidance strict on consent and DPIA.'},
+{region:'🇨🇳 China',law:'PIPL + CSL + DSL',notes:'Cross-border transfer restricted. Security assessment for biometric processors.'},
+{region:'🇯🇵 Japan',law:'APPI',notes:'Biometric data is personal. Consent required for sensitive use cases.'},
+{region:'🇰🇷 South Korea',law:'PIPA',notes:'Strong consent regime. Mandatory impact assessments for biometric processing.'},
+{region:'🇧🇷 Brazil',law:'LGPD',notes:'Sensitive data. Explicit consent and DPIA required.'},
+{region:'🇮🇳 India',law:'DPDPA 2023 + Aadhaar Act',notes:'Biometric IDs tightly regulated. Pen-testing requires AUA/ASA authorization.'},
+{region:'🇦🇺 Australia',law:'Privacy Act + APPs',notes:'Biometric data is sensitive. APP 3.3 collection limits apply.'},
+{region:'🇨🇦 Canada',law:'PIPEDA + provincial',notes:'Biometric is sensitive. Express consent generally required.'},
+{region:'🇿🇦 South Africa',law:'POPIA',notes:'Biometric data is special. Information regulator oversight.'},
+{region:'🇳🇬 Nigeria',law:'NDPR',notes:'Consent and lawful basis required for biometric processing.'}
+];
+
+function initJur(){document.getElementById('jurTable').innerHTML='<thead><tr><th>Region</th><th>Key Law</th><th>Notes</th></tr></thead><tbody>'+JUR.map(j=>`<tr><td>${j.region}</td><td style="color:var(--violet)">${j.law}</td><td class="muted">${j.notes}</td></tr>`).join('')+'</tbody>';}
+
+const CHECKS=[
+{title:'Pre-flight',items:['Written authorization on file (scope, dates, contacts)','Rules of engagement signed (allowed hours, escalation)','Backup of target state captured (firmware, config)','Logging / NTP / detection baseline established','Communication channel with client confirmed','Clean tooling (no old creds, fresh VM, isolated network)','Local legal review (jurisdiction map consulted)','Tooling tested against lab device before engagement']},
+{title:'In-flight',items:['Targets fingerprinted before active testing','Capture evidence (screenshots, pcap, hashes) at every step','Never run destructive tests without explicit approval','Avoid noisy scans on production hours unless agreed','Document unexpected findings immediately','Maintain chain-of-custody for any extracted data','Update client at agreed cadence','Stop & call out-of-scope discoveries (do not exploit)']},
+{title:'Post-flight',items:['Restore target to pre-engagement state where requested','Sanitize all test data and temporary accounts','Generate draft report within agreed SLA','Include remediation roadmap + severity ratings','Quality review by second tester before delivery','Final report delivered via secure channel','Destroy local copies per engagement agreement','Debrief call with client (technical + executive)']}
+];
+
+function initCheck(){document.getElementById('checkGrid').innerHTML=CHECKS.map((c,i)=>`<div class="card"><div class="card-h"><h3><span class="dot"></span>${c.title}</h3></div><ul style="padding-left:18px;line-height:1.7;font-size:12.5px">${c.items.map(it=>`<li class="muted">${it}</li>`).join('')}</ul><div class="mt-2 muted" style="font-size:10px"><span id="chk-${i}-done">0</span>/${c.items.length} confirmed</div><div class="btn-row"><button class="btn sm" onclick="checkConfirm(${i})">✓ Mark all confirmed</button></div></div>`).join('');}
+function checkConfirm(i){document.getElementById('chk-'+i+'-done').textContent=CHECKS[i].items.length;toast('Checklist '+CHECKS[i].title+' confirmed','ok');}
+
+const FUTURE=[
+{icon:'🧠',name:'EEG / Brainwave Auth',desc:'Consumer-grade EEG headsets introduce mind-print spoofing and replay surfaces.'},
+{icon:'💓',name:'Cardiac Biometrics',desc:'Wrist-worn radar (e.g. 60GHz FMCW) can be replayed with software-defined radio.'},
+{icon:'🛰',name:'Sat-Body-Lock',desc:'Auth via low-bit-rate satellite signals — research into SDR-based forgery ongoing.'},
+{icon:'👅',name:'Tongue Print',desc:'Taste-sensor arrays create new pressure/timing patterns; spoof via conductive pads.'},
+{icon:'🧬',name:'DNA-Linked Auth',desc:'Synthetic DNA strands can be fabricated; chain-of-custody is the real problem.'},
+{icon:'💨',name:'Breath / Scent',desc:'Mass-spec breath signatures spoofed via controlled substrate release.'},
+{icon:'👁‍🗨',name:'Retina Laser Projection',desc:'Coherent IR projection may fool LiDAR-based liveness on next-gen devices.'},
+{icon:'🤖',name:'Behavior Transformers',desc:'Large models trained on behavior will create new adversarial transfer surfaces.'}
+];
+
+function initFuture(){document.getElementById('futureGrid').innerHTML=FUTURE.map(f=>`<div class="card"><div class="card-h"><h3>${f.icon} ${f.name}</h3><span class="tag violet">2026-2030</span></div><p class="muted" style="font-size:12.5px;line-height:1.5">${f.desc}</p></div>`).join('');}
+
+function initRecon(){
+document.getElementById('reconTable').innerHTML='<thead><tr><th>Service</th><th>Port</th><th>Signature</th></tr></thead><tbody>'+[
+['Hikvision SADP','8899','UDP discovery, xml response'],
+['Hikvision HTTP','80','ISAPI /SDK endpoints'],
+['Dahua HTTP','80','/RPC2_Login path'],
+['Dahua TCP','37777','Proprietary binary'],
+['RTSP','554','OPTIONS → DESCRIBE'],
+['ONVIF','3702','WS-Discovery multicast'],
+['Zkteco PUSH','4370','UDP comm protocol'],
+['Suprema','1471','BioAPI / proprietary'],
+['OSDP','varies','Half-duplex serial secure channel'],
+['Wiegand','varies','D0/D1 lines, sniffable'],
+['BLE GATT','variable','advertised services UUID'],
+['Mifare Classic','13.56MHz','Crypto1 offline crack'],
+['HID iCLASS','13.56MHz','Default keys per HID profile'],
+['UART','serial','Often 115200 8N1, no auth'],
+['JTAG','varies','OpenOCD profiles by MCU']
+].map(r=>`<tr><td>${r[0]}</td><td class="mono" style="color:var(--cyan)">${r[1]}</td><td class="muted">${r[2]}</td></tr>`).join('')+'</tbody>';
+
+document.getElementById('reconNmap').textContent=
+`# BioBypass Recon — ghost1o1
+# Stage 1: discovery
+sudo nmap -sU -p 8899,5060,3702 --open 10.10.0.0/24 -oA recon_udp
+sudo nmap -sS -p 80,443,554,8000,8080,8899,37777,37778 --open 10.10.0.0/24 -oA recon_tcp
+
+# Stage 2: fingerprint top hits
+sudo nmap -sV -sC -p 80,443,554,8899,37777 <TARGET> -oA recon_deep
+
+# Stage 3: ONVIF WS-Discovery
+python3 -c "from onvif import ONVIFCamera; c=ONVIFCamera('<IP>',80,'admin','')"
+
+# Stage 4: RTSP paths brute
+for p in /Streaming/Channels/101 /h264/ch1/main/av_stream /cam/realmonitor?channel=1&subtype=0 /live /onvif/streaming/channels/101 ; do
+  echo "[*] trying $p"
+  curl -s -m 3 -I rtsp://<IP>:554$p | head -1
+done`;
+}
+
+function initFw(){document.getElementById('fwPipeline').textContent=
+`# BioBypass Firmware RE — ghost1o1
+# 1. Acquire (vendor download / MITM update / UART dump)
+binwalk -E firmware.bin
+
+# 2. Extract (recursive)
+binwalk -e --run-as=root firmware.bin -C ./extracted/
+
+# 3. Look at the filesystem
+ls -la ./extracted/_firmware.bin.extracted/squashfs-root/
+cat ./extracted/_firmware.bin.extracted/squashfs-root/etc/passwd
+cat ./extracted/_firmware.bin.extracted/squashfs-root/etc/shadow
+
+# 4. Find config & credentials
+grep -rE "(password|passwd|pass=|key=|token=|secret=|admin)" ./extracted/ 2>/dev/null
+
+# 5. Find hardcoded RSA / SSH keys
+find ./extracted/ -name "*.pem" -o -name "id_rsa*" -o -name "authorized_keys"
+
+# 6. Disassemble main binary
+file ./extracted/.../bin/main
+ghidraRun ./extracted/.../bin/main   # or radare2 -A main
+
+# 7. Look for backdoor accounts or backdoor ports
+grep -E "telnetd|dropbear|sshd|admin" ./extracted/.../etc/init.d/ 2>/dev/null
+strings ./extracted/.../bin/main | grep -E "tcp|listen|bind|:9527|:23|:2222"
+
+# 8. If the device exposes UART: hook a UART bridge, watch boot logs
+miniterm.py -b 115200 /dev/ttyUSB0
+`;}
+
+async function fwHash(){const f=document.getElementById('fwFile').files[0];if(!f){toast('Pick a file first','warn');return;}const buf=await f.arrayBuffer();const h=await crypto.subtle.digest('SHA-256',buf);document.getElementById('fwOut').textContent=Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');toast('SHA-256 computed','ok');}
+async function fwScan(){const f=document.getElementById('fwFile').files[0];if(!f){toast('Pick a file first','warn');return;}const txt=await f.text();const patterns=[/password\s*[:=]\s*['"]?([^\s'"]+)/gi,/admin\s*[:=]\s*['"]?([^\s'"]+)/gi,/-----BEGIN [A-Z ]+PRIVATE KEY-----/g,/-----BEGIN OPENSSH PRIVATE KEY-----/g,/AKIA[0-9A-Z]{16}/g,/eyJ[A-Za-z0-9_-]{20,}\.eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/g,/telnetd|dropbear|busybox/g];const hits=[];for(const p of patterns){const m=txt.match(p);if(m)hits.push({pattern:p.toString(),count:m.length,samples:m.slice(0,3)});}document.getElementById('fwScanOut').textContent=JSON.stringify({size:f.size,type:f.type||'unknown',hits},null,2);toast('Scan complete — '+hits.length+' patterns matched','ok');}
+
+let wizStep=0;
+function wizNext(){if(wizStep<4){wizStep++;renderWiz();}}
+function wizBack(){if(wizStep>0){wizStep--;renderWiz();}}
+function renderWiz(){for(let i=0;i<5;i++){const p=document.getElementById('wizPane-'+i);if(p)p.style.display=i===wizStep?'block':'none';const s=document.querySelector(`.wiz-step[data-step="${i}"]`);if(s){s.classList.remove('active','done');if(i<wizStep)s.classList.add('done');if(i===wizStep)s.classList.add('active');}}}
+function wizRun(phase){if(phase==='discovery'){const target=document.getElementById('wiz-target').value||'10.10.0.0/24';document.getElementById('wiz-out-1').textContent=
+`# Discovery sweep on ${target}
+nmap -sn ${target}
+nmap -sS -p 80,443,554,8899,37777,8000,8080,3702 --open ${target} -oA recon_stage1
+# Identified 5 candidates
+# [+] 10.10.0.1   Vantiva router
+# [+] 10.10.0.77  Hikvision DS-2CD2142FWD-I
+# [+] 10.10.0.88  Dahua IPC-HDW4431C-A
+# [+] 10.10.0.118 Generic OEM
+# [+] 10.10.0.250 Android/Fongo`;}else if(phase==='execute'){const v=document.getElementById('wiz-vector').value;document.getElementById('wiz-out-3').textContent=VECTORS.find(x=>x.id===v).desc+'\n\n# Tools: '+VECTORS.find(x=>x.id===v).tools;}else if(phase==='report'){buildReport();document.getElementById('wiz-out-4').textContent=document.getElementById('repOut').textContent;}}
+
+function hcReset(){document.getElementById('hcOut').textContent='Awaiting run…';drawChart([]);}
+function hcRun(){let s=parseFloat(document.getElementById('hcStart').value);const t=parseFloat(document.getElementById('hcTarget').value);const noise=parseFloat(document.getElementById('hcNoise').value);const iters=parseInt(document.getElementById('hcIter').value);const series=[s];for(let i=0;i<iters;i++){s=Math.max(0,Math.min(1,s+(t-s)*0.15+(Math.random()-.5)*noise));series.push(s);}drawChart(series);const reached=series[series.length-1]>=t;document.getElementById('hcOut').innerHTML=`Iterations: <b>${series.length}</b> &middot; Final: <b>${series[series.length-1].toFixed(4)}</b> &middot; Target: <b>${t}</b> &middot; `+(reached?'<span class="tag green">REACHED</span>':'<span class="tag yellow">NOT REACHED</span>');}
+function drawChart(series){const c=document.getElementById('hcChart');const ctx=c.getContext('2d');const w=c.width=c.clientWidth;const h=c.height;ctx.fillStyle='#000';ctx.fillRect(0,0,w,h);ctx.strokeStyle='rgba(179,136,255,.12)';ctx.lineWidth=1;for(let i=0;i<5;i++){const y=h-(h/4)*i-10;ctx.beginPath();ctx.moveTo(30,y);ctx.lineTo(w-10,y);ctx.stroke();}ctx.strokeStyle='rgba(255,255,255,.3)';ctx.beginPath();ctx.moveTo(30,5);ctx.lineTo(30,h-5);ctx.lineTo(w-5,h-5);ctx.stroke();if(series.length){const max=series.length-1;ctx.strokeStyle='#00d4ff';ctx.lineWidth=2;ctx.beginPath();series.forEach((v,i)=>{const x=30+((w-40)*(i/max));const y=h-5-v*(h-15);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'rgba(0,212,255,.4)');grad.addColorStop(1,'rgba(0,212,255,0)');ctx.fillStyle=grad;ctx.lineTo(w-10,h-5);ctx.lineTo(30,h-5);ctx.closePath();ctx.fill();}ctx.fillStyle='#8b8ba8';ctx.font='10px monospace';ctx.fillText('0.0',5,h-5);ctx.fillText('0.5',5,h/2);ctx.fillText('1.0',5,15);ctx.fillText('iter 0',30,h-1);}
+
+async function labHash(){const algo=document.getElementById('labAlgo').value.replace('-','');const data=new TextEncoder().encode(document.getElementById('labIn').value);const h=await crypto.subtle.digest(algo,data);document.getElementById('labHashOut').textContent=Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');toast(algo+' computed','ok');}
+function labPinGen(){const len=parseInt(document.getElementById('labPinLen').value);const set=document.getElementById('labPinSet').value;let out='';for(let i=0;i<10;i++){let s='';for(let j=0;j<len;j++)s+=set[Math.floor(Math.random()*set.length)];out+=s+'\n';}document.getElementById('labPinOut').textContent=out;}
+function labPinBrute(){const len=parseInt(document.getElementById('labPinLen').value);const set=document.getElementById('labPinSet').value;const total=Math.pow(set.length,len);document.getElementById('labPinOut').textContent=
+`PIN length:        ${len}
+Symbol set size:   ${set.length} (${set})
+Total combinations: ${total.toLocaleString()}
+At 100/sec:        ${(total/100/3600/24).toFixed(2)} days
+At 10k/sec:         ${(total/10000/3600/24).toFixed(2)} days
+At 1M/sec:          ${(total/1e6/3600/24).toFixed(2)} days`;}
+function labCopy(id){const txt=document.getElementById(id).textContent;navigator.clipboard.writeText(txt).then(()=>toast('Copied to clipboard','ok'));}
+function copyEl(id){return labCopy(id);}
+
+function qrGen(){const text=document.getElementById('qrText').value||' ';const c=document.getElementById('qrCanvas');const ctx=c.getContext('2d');const w=c.width,h=c.height;ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);const N=25;const cell=Math.floor((w-20)/N);const offX=(w-cell*N)/2,offY=(h-cell*N)/2;let seed=0;for(let i=0;i<text.length;i++)seed=(seed*31+text.charCodeAt(i))|0;function rng(){seed=(seed*1664525+1013904223)|0;return((seed>>>0)%1000)/1000;}ctx.fillStyle='#000';for(let y=0;y<N;y++){for(let x=0;x<N;x++){const r=rng();if(r<0.5)ctx.fillRect(offX+x*cell,offY+y*cell,cell,cell);}}function finder(px,py){ctx.fillStyle='#fff';ctx.fillRect(px,py,cell*7,cell*7);ctx.fillStyle='#000';ctx.fillRect(px,py,cell*7,cell*7);ctx.fillStyle='#fff';ctx.fillRect(px+cell,py+cell,cell*5,cell*5);ctx.fillStyle='#000';ctx.fillRect(px+cell*2,py+cell*2,cell*3,cell*3);}finder(offX,offY);finder(offX+cell*(N-7),offY);finder(offX,offY+cell*(N-7));ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.strokeRect(offX-4,offY-4,cell*N+8,cell*N+8);toast('QR pattern generated (visual)','ok');}
+function qrDownload(){const c=document.getElementById('qrCanvas');const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='qr_biobypass.png';a.click();}
+
+function dashAdd(){const c=document.getElementById('dashTerm');const t=new Date().toLocaleTimeString();const types=[['[+]','ok','target fingerprinted'],['[+]','ok','credential rotated'],['[*]','info','sweep complete'],['[!]','warn','rate-limited'],['[-]','err','connection refused'],['[+]','ok','shell obtained']];const r=types[Math.floor(Math.random()*types.length)];c.innerHTML+=`<div><span class="l-ts">[${t}]</span><span class="l-${r[1]}"> ${r[0]} ${r[2]}</span></div>`;c.scrollTop=c.scrollHeight;document.getElementById('d-targets').textContent=parseInt(document.getElementById('d-targets').textContent)+(Math.random()<.3?1:0);document.getElementById('d-creds').textContent=parseInt(document.getElementById('d-creds').textContent)+(Math.random()<.4?1:0);document.getElementById('d-exploit').textContent=parseInt(document.getElementById('d-exploit').textContent)+(Math.random()<.1?1:0);document.getElementById('d-evt').textContent=parseInt(document.getElementById('d-evt').textContent)+1;}
+function dashClear(){document.getElementById('dashTerm').innerHTML='';['d-targets','d-creds','d-exploit','d-evt'].forEach(id=>document.getElementById(id).textContent='0');}
+
+function buildReport(){const name=document.getElementById('repName').value||document.getElementById('wiz-name').value||'OPERATION-UNNAMED';const tester=document.getElementById('repTester').value||'ghost1o1';const sum=document.getElementById('repSum').value||'No executive summary provided.';const target=document.getElementById('wiz-target').value||'unspecified';const data={engagement:name,tester,target,generated:new Date().toISOString(),summary:sum,kpis:{vectors:VECTORS.length,cves:CVES.length,brands:CTORS.length,jurisdictions:JUR.length,checks:CHECKS.reduce((a,c)=>a+c.items.length,0)},topCVEs:CVES.slice(0,5),vectors:VECTORS.map(v=>({id:v.id,name:v.name,cvss:v.cvss})),recommendations:['Enforce multi-factor with cryptographic binding between factors','Rotate default credentials and audit shadow accounts','Patch OSDP secure channel implementations to v2.2+','Enable liveness detection (depth + IR + motion) on face surfaces','Implement rate-limiting on all biometric API endpoints','Sign firmware and verify signatures on update','Adopt zero-trust segmentation for access-control networks','Conduct annual red-team biometric assessments'],signed:'ghost1o1',tagline:'There is no lock.'};document.getElementById('repOut').textContent=JSON.stringify(data,null,2);return data;}
+
+function downloadReport(){const data=buildReport();const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${data.engagement} — Report</title><style>body{font-family:system-ui;max-width:880px;margin:40px auto;padding:0 20px;color:#222;line-height:1.6}h1{border-bottom:3px solid #e63946;padding-bottom:8px}.tag{display:inline-block;background:#eee;padding:2px 8px;border-radius:4px;font-size:12px;margin:2px}.tag.red{background:#fdd;color:#900}.tag.yellow{background:#ffd66b}.tag.green{background:#cec}pre{background:#0a0a14;color:#cfd8ff;padding:14px;border-radius:6px;overflow:auto;font-size:12px}.sig{color:#b388ff;font-weight:700}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{padding:6px 10px;border:1px solid #ddd;text-align:left;font-size:13px}</style></head><body><h1>🛡 ${data.engagement} — Biometric Pentest Report</h1><p><b>Tester:</b> <span class="sig">${data.tester}</span> &middot; <b>Generated:</b> ${data.generated}</p><p><b>Target:</b> ${data.target}</p><h2>Executive Summary</h2><p>${data.summary}</p><h2>KPIs</h2><ul><li>Attack Vectors covered: ${data.kpis.vectors}</li><li>CVE entries reviewed: ${data.kpis.cves}</li><li>Brands profiled: ${data.kpis.brands}</li><li>Jurisdictions mapped: ${data.kpis.jurisdictions}</li><li>Checklist items: ${data.kpis.checks}</li></ul><h2>Top CVEs</h2><table><tr><th>CVE</th><th>Vendor</th><th>Severity</th><th>Score</th><th>Description</th></tr>${data.topCVEs.map(c=>`<tr><td>${c.id}</td><td>${c.vendor}</td><td><span class="tag ${c.sev==='Critical'?'red':c.sev==='High'?'yellow':'green'}">${c.sev}</span></td><td>${c.score}</td><td>${c.desc}</td></tr>`).join('')}</table><h2>Recommendations</h2><ol>${data.recommendations.map(r=>`<li>${r}</li>`).join('')}</ol><hr><p class="sig">"${data.tagline}" — ${data.signed}</p>
+<footer>
+  <span class="sig">GHOST1O1</span> · <span class="sep">/</span> BIOBYPASS PRO <span class="sig">v11.0</span> · <span class="sep">/</span> NOCTURNE CIPHER <span class="sep">/</span> <span class="holo">"There is no lock."</span>
+</footer>
+
+</body></html>`;const blob=new Blob([html],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=data.engagement.replace(/\s+/g,'_')+'_report.html';a.click();URL.revokeObjectURL(a.href);toast('Report downloaded','ok');}
+
+function openModal(html){document.getElementById('modalBody').innerHTML=html;document.getElementById('modalBg').classList.add('show');}
+function closeModal(){document.getElementById('modalBg').classList.remove('show');}
+function showHelp(){openModal('<h3>⌨ Keyboard Shortcuts</h3><table><tr><td><span class="kbd">Ctrl</span>+<span class="kbd">K</span></td><td>Command palette</td></tr><tr><td><span class="kbd">Ctrl</span>+<span class="kbd">S</span></td><td>Save project</td></tr><tr><td><span class="kbd">Ctrl</span>+<span class="kbd">E</span></td><td>Export project</td></tr><tr><td><span class="kbd">?</span></td><td>This help</td></tr><tr><td><span class="kbd">Esc</span></td><td>Close modal</td></tr></table>');}
+
+function bindShortcuts(){addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(e.key==='?'&&!e.ctrlKey){e.preventDefault();showHelp();}if(e.ctrlKey&&e.key.toLowerCase()==='s'){e.preventDefault();saveProject();toast('Project saved','ok');}if(e.ctrlKey&&e.key.toLowerCase()==='e'){e.preventDefault();exportProject();}if(e.key==='Escape')closeModal();});}
+
+function saveProject(){const data={hash:location.hash,wiz:{name:val('wiz-name'),client:val('wiz-client'),tester:val('wiz-tester'),target:val('wiz-target'),auth:val('wiz-auth'),step:wizStep},rep:{name:val('repName'),tester:val('repTester'),sum:val('repSum')},ts:Date.now()};try{localStorage.setItem('bbp_v104',JSON.stringify(data));document.getElementById('proj-saved').textContent=new Date().toLocaleTimeString();document.getElementById('proj-size').textContent=(JSON.stringify(data).length/1024).toFixed(1)+' KB';}catch(e){}}
+function restoreProject(){try{const raw=localStorage.getItem('bbp_v104');if(!raw)return;const d=JSON.parse(raw);if(d.wiz){setv('wiz-name',d.wiz.name);setv('wiz-client',d.wiz.client);setv('wiz-tester',d.wiz.tester);setv('wiz-target',d.wiz.target);setv('wiz-auth',d.wiz.auth);if(typeof d.wiz.step==='number'){wizStep=d.wiz.step;renderWiz();}}if(d.rep){setv('repName',d.rep.name);setv('repTester',d.rep.tester);setv('repSum',d.rep.sum);}document.getElementById('proj-saved').textContent=new Date(d.ts).toLocaleTimeString();document.getElementById('proj-size').textContent=(raw.length/1024).toFixed(1)+' KB';toast('Project restored','ok');}catch(e){}}
+function val(id){const el=document.getElementById(id);return el?el.value:'';}
+function setv(id,v){const el=document.getElementById(id);if(el)el.value=v||'';}
+function exportProject(){saveProject();const raw=localStorage.getItem('bbp_v104')||'{}';const blob=new Blob([raw],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='biobypass_project_'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Project exported','ok');}
+function importProject(){const inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{localStorage.setItem('bbp_v104',ev.target.result);restoreProject();toast('Project imported','ok');}catch(err){toast('Invalid file','err');}};r.readAsText(f);};inp.click();}
+function clearProject(){if(!confirm('Reset all project state? This cannot be undone.'))return;localStorage.removeItem('bbp_v104');['wiz-name','wiz-client','wiz-tester','wiz-target','wiz-auth','repName','repTester','repSum'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('wiz-tester').value='ghost1o1';document.getElementById('repTester').value='ghost1o1';document.getElementById('proj-saved').textContent='never';document.getElementById('proj-size').textContent='0 KB';toast('Project reset','ok');}
+
+addEventListener('input',e=>{if(e.target.matches('input,textarea,select'))saveProject();});
+addEventListener('DOMContentLoaded',()=>{initVectors();initCVE();initCtor();initJur();initCheck();initFuture();initRecon();initFw();bindShortcuts();const h=(location.hash||'#home').slice(1);if(document.getElementById('page-'+h))goto(h);restoreProject();});
+
+// ═══ v11.0 — NOCTURNE CIPHER additions ═══
+(function(){
+  // Watermark
+  const wm = document.getElementById('watermark');
+  if(wm) for(let i=0;i<4;i++){const s=document.createElement('span');s.textContent='NOCTURNE';wm.appendChild(s)}
+
+  // Particles
+  const c = document.getElementById('particles');
+  if(c){
+    const ctx = c.getContext('2d');
+    let w, h;
+    function resize(){ w = c.width = innerWidth; h = c.height = innerHeight }
+    resize(); addEventListener('resize', resize);
+    const N = Math.min(60, Math.floor((innerWidth*innerHeight)/24000));
+    const ps = Array.from({length:N}, ()=>({
+      x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+      r: Math.random()*1.8+.4,
+      c: ['#e3063e','#a855f7','#00f3ff','#ec4899','#00ff9d'][Math.floor(Math.random()*5)]
+    }));
+    (function tick(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      ps.forEach(p=>{
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>innerWidth) p.vx*=-1;
+        if(p.y<0||p.y>innerHeight) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 10;
+        ctx.fill(); ctx.shadowBlur = 0;
+      });
+      ctx.strokeStyle = 'rgba(168,85,247,.12)'; ctx.lineWidth = .5;
+      for(let i=0;i<ps.length;i++) for(let j=i+1;j<ps.length;j++){
+        const dx=ps[i].x-ps[j].x, dy=ps[i].y-ps[j].y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<140){ ctx.beginPath(); ctx.moveTo(ps[i].x,ps[i].y); ctx.lineTo(ps[j].x,ps[j].y); ctx.stroke() }
+      }
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  // Cursor glow
+  const glow = document.getElementById('cursorGlow');
+  if(glow){
+    let tx=0,ty=0,x=0,y=0;
+    addEventListener('mousemove', e=>{ tx=e.clientX; ty=e.clientY });
+    (function tick(){
+      x += (tx-x)*.1; y += (ty-y)*.1;
+      glow.style.left = x+'px'; glow.style.top = y+'px';
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  // 3D tilt on cards
+  function enableTilt(){
+    document.querySelectorAll('.card,.kpi').forEach(el=>{
+      if(el.dataset.tiltBound) return;
+      el.dataset.tiltBound = '1';
+      el.style.transformStyle = 'preserve-3d';
+      el.addEventListener('mousemove', e=>{
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX-r.left)/r.width-.5;
+        const y = (e.clientY-r.top)/r.height-.5;
+        el.style.transform = `perspective(900px) rotateX(${-y*3}deg) rotateY(${x*3}deg) translateZ(0)`;
+      });
+      el.addEventListener('mouseleave', ()=>el.style.transform='');
+    });
+  }
+  setTimeout(enableTilt, 100);
+  setTimeout(enableTilt, 500);
+})();
+
+</script>
+</body>
+</html>
