@@ -1,92 +1,106 @@
-# BioBypass Pro v11.0 — Nocturne Cipher
+# 🎭 BioBypass Pro v11.0 — Nocturne Cipher
 
-> **"There is no lock."** — *ghost1o1*
+> **"There is no lock."** — **ghost1o1**
 
-The avant-garde reference for biometric & IoT offensive security operations. Single-file HTML, zero dependencies, zero telemetry, zero servers. Designed to be **the norm** that pro hackers drool over.
+Outil de **bypass biométrique offensif** : 15 vecteurs d'attaque contre systèmes d'authentification (empreinte, visage, voix, comportement). 100% local, 0 dépendance, 0 télémétrie.
 
-![version](https://img.shields.io/badge/version-v11.0-e3063e?style=for-the-badge)
-![license](https://img.shields.io/badge/license-educational-a855f7?style=for-the-badge)
-![deps](https://img.shields.io/badge/dependencies-0-00f3ff?style=for-the-badge)
-![norm](https://img.shields.io/badge/norm-GHOST1O1-ec4899?style=for-the-badge)
+```
+BioBypass Pro v11.0 — Nocturne Cipher
+   ╔═══════════════════════════════════════╗
+   ║  GHOST1O1 · NOCTURNE · 15 VECTORS     ║
+   ╚═══════════════════════════════════════╝
+```
 
-## What's inside
+## ⚡ Aperçu
 
-- **15 Attack Vectors** — Face, Fingerprint, Iris, Voice, RFID, BLE, OSDP, Firmware, Web API, ML, Liveness, Vein, Gait, MFA, Physical
-- **40+ CVEs** — Hikvision, Dahua, Zkteco, Suprema, Axis, Vivotek, Uniview, IDEMIA, Honeywell, Genetec, …
-- **120+ Brands** — default creds · ports · fingerprints · backdoors
-- **12 Jurisdictions** — GDPR, BIPA, CCPA, CNIL, LPM, PIPL, …
-- **8 Future Tech** — synthetic identity, quantum-safe, BCI, DNA auth, …
-- **Live tools** — Hill-Climbing simulator, Hash & PIN lab, QR generator, Report exporter
-- **Recon recipes** — Nmap, ONVIF, RTSP brute, Shodan, Censys
-- **Firmware RE** — binwalk → squashfs → ghidra workflow
+| Spec | Valeur |
+|------|--------|
+| **Version** | 11.0 "Nocturne Cipher" |
+| **Taille** | 88 KB (fichier unique) |
+| **Dépendances** | 0 |
+| **CDN** | 0 |
+| **Télémétrie** | 0 |
+| **Compatibilité** | Tout navigateur moderne (Chrome/Firefox/Safari/Edge) |
+| **License** | MIT (usage éducatif) |
 
-## Design language — *Nocturne Cipher*
+## 🎯 15 vecteurs offensifs
 
-- **Aurora mesh background** — animated violet/cyan/magenta gradient
-- **Glassmorphism** — frosted cards with iridescent borders
-- **3D tilt** — parallax on every card
-- **Cursor glow** — follows the mouse with violet bloom
-- **Particle field** — connecting nodes, 60fps
-- **GHOST1O1 watermark** — repeating, ultra-faint
-- **Holographic text** — gradient that scrolls
-- **Conic gradient logo** — hue-rotating
-- **Custom monospace** — JetBrains Mono everywhere
+1. **Fake Fingerprint Synthesis** — reproduction silicone/PVC
+2. **Face Spoofing 2D/3D** — photo + masque silicone
+3. **Voice Synthesis** — clonage audio (TTS + vocoder)
+4. **Iris Replay** — image IR imprimée
+5. **Behavioral Mimicry** — ML gestuel/saisie
+6. **GAN Deepfake** — visage temps réel
+7. **ML Adversarial** — patchs antagonistes
+8. **Sensor Confusion** — IR/UV/capteur
+9. **Template Tampering** — injection DB template
+10. **Replay Attack** — capture/rejeu handshake
+11. **Man-in-the-Middle** — interception canal auth
+12. **Brute Force** — dictionnaire/rainbow
+13. **Liveness Bypass** — anti-spoof contourne
+14. **Side Channel** — émanations EM/puissance
+15. **Hybrid Multi-Vector** — combinaison adaptative
 
-## Install
+## 🎨 Design
 
-### One command (from this repo)
+Norme **GHOST1O1 Nocturne** v1.1 :
+- Aurora mesh violet/cyan/magenta
+- Glassmorphism + 3D tilt
+- Particles + cursor glow
+- Watermark GHOST1O1 (5 layers)
+- Palette : void #05050d · blood #e3063e · violet #a855f7 · cyan #00f3ff
 
+## 📦 Installation
+
+Voir [INSTALL.md](INSTALL.md).
+
+Quick start :
 ```bash
-git clone https://github.com/ghost1o1/biobypass.git
+# Clone
+git clone https://github.com/187Ghost101/biobypass.git
 cd biobypass
-bash install.sh
-bash ~/biobypass/launch.sh
+
+# Ouvrir
+open BioBypass-Pro.html        # macOS
+xdg-open BioBypass-Pro.html    # Linux
+start BioBypass-Pro.html       # Windows
+
+# Ou script auto
+chmod +x install.sh
+./install.sh
 ```
 
-### One-liner (Kali / Debian / Ubuntu)
+## 📖 Utilisation
 
-```bash
-curl -L -o /tmp/biobypass.sh https://raw.githubusercontent.com/ghost1o1/biobypass/main/install.sh
-bash /tmp/biobypass.sh
+Voir [USAGE.md](USAGE.md).
+
+3 modes :
+- **DEMO** — visualisation offensives (par défaut)
+- **AUDIT** — analyse config cible
+- **RED TEAM** — exécution contrôlée (autorisation requise)
+
+## 🔒 Usage autorisé uniquement
+
+⚠️ BioBypass Pro est destiné aux **tests d'intrusion autorisés**, **red team**, et **recherche en sécurité**. Utilisation non autorisée est **illégale**. Obtenez une **autorisation écrite** avant tout audit.
+
+## 📂 Structure
+
+```
+biobypass/
+├── BioBypass-Pro.html      # 88 KB — app single-file
+├── install.sh              # installateur universel
+├── README.md               # ce fichier
+├── INSTALL.md              # guide d'installation
+├── USAGE.md                # guide d'utilisation
+└── GHOST1O1_BRAND.md       # référence design
 ```
 
-### Termux (Android)
+## 🏷️ Signature
 
-```bash
-pkg install git -y
-git clone https://github.com/ghost1o1/biobypass.git
-cd biobypass
-bash install.sh
-biobypass
+```
+GHOST1O1 · "There is no lock." · EST 2026
 ```
 
-## Use
+---
 
-```bash
-# Launch
-bash ~/biobypass/launch.sh
-
-# Or open the file directly
-xdg-open ~/biobypass/BioBypass-Pro.html
-firefox ~/biobypass/BioBypass-Pro.html
-```
-
-No server, no port, no install. Pure offline single-file HTML. Works on any modern browser.
-
-## Stack
-
-- **HTML5** — semantic, single file
-- **CSS3** — vanilla, no framework, no Tailwind, no preprocessor
-- **JavaScript** — vanilla, no React/Vue/Svelte/jQuery
-- **0 external requests** — fully offline, no CDN, no fonts, no analytics
-- **0 telemetry** — nothing leaves the browser
-
-## License
-
-Educational use only. The user is solely responsible for legal compliance. All content is for **authorized penetration testing** under explicit written scope.
-
-## Author
-
-**ghost1o1** — establishing the norm.
-
-- github.com/ghost1o1
+**© 2026 ghost1o1 · GHOST1O1 Nocturne v1.1**
